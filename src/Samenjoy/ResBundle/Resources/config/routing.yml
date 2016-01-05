@@ -1,0 +1,3 @@
+samenjoy_res_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: SamenjoyResBundle:Default:index }

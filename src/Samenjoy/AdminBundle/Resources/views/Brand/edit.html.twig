@@ -1,0 +1,127 @@
+{% extends 'SamenjoyAdminBundle::admin.html.twig' %} {% block breadcrumb_content %} {{ parent() }}
+<li><a href="{{ path('_admin_brand_list') }}">Liste des Marques</a></li>
+<li class="active"><a href="{{path('_admin_brand_editGet', {'uid': brand.id})}}">{{glyphIco('edit')}} &nbsp; Détails de la Marque <b>{{brand.name}}</b></a></li>
+{% endblock breadcrumb_content %} {% block content %}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="well well-sm text-right">
+            <a href="{{ path('_admin_brand_list') }}" class="btn btn-primary">{{ ionIco('android-system-back') }} Liste des Marques</a><br><br>
+            <a href="{{ path('_admin_brand_addGet') }}" class="btn btn-primary">{{ glyphIco('plus') }} Ajouter Nouveau</a>
+        </div>
+        <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+                <li  {%if tabActive==1%} class="active" {%endif%}><a href="#overview" data-toggle="tab">Aperçu</a></li>
+                <li  {%if tabActive==2%} class="active" {%endif%}><a href="#edit" data-toggle="tab">Edition</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane fade{%if tabActive==1%} in active{%endif%}" id="overview">
+                    <div class="box box-primary">
+                        <div class="box-header">
+                            <h3 class="box-title">Détails de la Marque</h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-lg-3 text-right">Nom :</div>
+                                <div class="col-lg-9">{{brand.name}}&nbsp;</div>
+                                <div class="col-lg-3 text-right">Titre :</div>
+                                <div class="col-lg-9">{%if brand.title is not empty%}{{brand.title|raw}}{%else%}{{bsLabelWarning('_NA'|trans)}}{%endif%}&nbsp;</div>
+                                <div class="col-lg-3 text-right">Description :</div>
+                                <div class="col-lg-9">{%if brand.description is not empty%}{{brand.description|raw}}{%else%}{{bsLabelWarning('_NA'|trans)}}{%endif%}&nbsp;</div>
+                                <div class="col-lg-3 text-right">Image :</div>
+                                <div class="col-lg-9">{%if brand.image is not empty%}<img src="/images/brand/images/{{brand.image|raw}}" alt="{{ brand.name }}"><br><br>{%else%}{{bsLabelWarning('_NA'|trans)}}{%endif%}&nbsp;</div>
+                                <div class="col-lg-3 text-right">Logo :</div>
+                                <div class="col-lg-9">{%if brand.logo is not empty%}<img src="/images/brand/logos/{{brand.logo|raw}}" alt="{{ brand.name }}"><br><br>{%else%}{{bsLabelWarning('_NA'|trans)}}{%endif%}&nbsp;</div>
+                                <div class="col-lg-3 text-right">Banniere :</div>
+                                <div class="col-lg-9">{%if brand.banner is not empty%}<img src="/images/brand/banners/{{brand.banner|raw}}" alt="{{ brand.name }}"><br><br>{%else%}{{bsLabelWarning('_NA'|trans)}}{%endif%}&nbsp;</div>
+                                <div class="col-lg-3 text-right">Banniere Front :</div>
+                                <div class="col-lg-9">{%if brand.frontBanner is not empty%}<img src="/images/brand/frontBanners/{{brand.frontBanner|raw}}" alt="{{ brand.name }}"><br><br>{%else%}{{bsLabelWarning('_NA'|trans)}}{%endif%}&nbsp;</div>
+                                <div class="col-lg-3 text-right">metaKeywords :</div>
+                                <div class="col-lg-9">{%if brand.metaKeywords is not empty%}{{brand.metaKeywords|raw}}{%else%}{{bsLabelWarning('_NA'|trans)}}{%endif%}&nbsp;</div>
+                                <div class="col-lg-3 text-right">metaDescription :</div>
+                                <div class="col-lg-9">{%if brand.metaDescription is not empty%}{{brand.metaDescription|raw}}{%else%}{{bsLabelWarning('_NA'|trans)}}{%endif%}&nbsp;</div>
+                                <div class="col-lg-3 text-right">Titre HTML :</div>
+                                <div class="col-lg-9">{%if brand.htmlTitle is not empty%}{{brand.htmlTitle|raw}}{%else%}{{bsLabelWarning('_NA'|trans)}}{%endif%}&nbsp;</div>
+                            </div>
+                        </div>
+                    </div>
+                    {% for brandTrans in brand.translations %}
+                    <br>
+                    <br>
+                    <div class="box box-primary">
+                        <div class="box-header">
+                            <h3 class="box-title">Taduction {{ brandTrans.lang }}</h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-lg-3 text-right">Titre :</div>
+                                <div class="col-lg-9">{%if brandTrans.title is not empty%}{{brandTrans.title|raw}}{%else%}{{bsLabelWarning('_NA'|trans)}}{%endif%}&nbsp;</div>
+                                <div class="col-lg-3 text-right">Description :</div>
+                                <div class="col-lg-9">{%if brandTrans.description is not empty%}{{brandTrans.description|raw}}{%else%}{{bsLabelWarning('_NA'|trans)}}{%endif%}&nbsp;</div>
+                                <div class="col-lg-3 text-right">Image :</div>
+                                <div class="col-lg-9">{%if brandTrans.image is not empty%}<img src="/images/brand/images/{{brandTrans.image|raw}}" alt="{{ brand.name }}"><br><br>{%else%}{{bsLabelWarning('_NA'|trans)}}{%endif%}&nbsp;</div>
+                                <div class="col-lg-3 text-right">Logo :</div>
+                                <div class="col-lg-9">{%if brandTrans.logo is not empty%}<img src="/images/brand/logos/{{brandTrans.logo|raw}}" alt="{{ brand.name }}"><br><br>{%else%}{{bsLabelWarning('_NA'|trans)}}{%endif%}&nbsp;</div>
+                                <div class="col-lg-3 text-right">Banniere :</div>
+                                <div class="col-lg-9">{%if brandTrans.banner is not empty%}<img src="/images/brand/banners/{{brandTrans.banner|raw}}" alt="{{ brand.name }}"><br><br>{%else%}{{bsLabelWarning('_NA'|trans)}}{%endif%}&nbsp;</div>
+                                <div class="col-lg-3 text-right">Banniere Front :</div>
+                                <div class="col-lg-9">{%if brandTrans.frontBanner is not empty%}<img src="/images/brand/frontBanners/{{brandTrans.frontBanner|raw}}" alt="{{ brand.name }}"><br><br>{%else%}{{bsLabelWarning('_NA'|trans)}}{%endif%}&nbsp;</div>
+                                <div class="col-lg-3 text-right">metaKeywords :</div>
+                                <div class="col-lg-9">{%if brandTrans.metaKeywords is not empty%}{{brandTrans.metaKeywords|raw}}{%else%}{{bsLabelWarning('_NA'|trans)}}{%endif%}&nbsp;</div>
+                                <div class="col-lg-3 text-right">metaDescription :</div>
+                                <div class="col-lg-9">{%if brandTrans.metaDescription is not empty%}{{brandTrans.metaDescription|raw}}{%else%}{{bsLabelWarning('_NA'|trans)}}{%endif%}&nbsp;</div>
+                                <div class="col-lg-3 text-right">Titre HTML :</div>
+                                <div class="col-lg-9">{%if brandTrans.htmlTitle is not empty%}{{brandTrans.htmlTitle|raw}}{%else%}{{bsLabelWarning('_NA'|trans)}}{%endif%}&nbsp;</div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <br>
+                    <br>
+                </div>
+                <div class="tab-pane fade{%if tabActive==2%} in active{%endif%}" id="edit">
+                    <div class="box box-danger">
+                        <div class="box-header">
+                            <h3 class="box-title">Modification de la Marque</h3>
+                        </div>
+                        <div class="box-body">
+                            {{form_start(BrandEditForm, {'method':'POST', 'action': path('_admin_brand_editPost', {'uid': brand.id}), 'style': 'horizontal'})}}
+                            {{form_row(BrandEditForm.title, {'label_col': 3, 'widget_col': 5})}}
+                            {{form_row(BrandEditForm.description, {'label_col': 3, 'widget_col': 8, 'attr':{'class':'wysiwyg'} })}}
+                            {{form_row(BrandEditForm.metaKeywords, {'label_col': 3, 'widget_col': 7})}}
+                            {{form_row(BrandEditForm.metaDescription, {'label_col': 3, 'widget_col': 7})}}
+                            {{form_row(BrandEditForm.htmlTitle, {'label_col': 3, 'widget_col': 5})}}
+                            <div class="form-group">
+                                <div class="col-lg-offset-3 col-lg-2">
+                                    <button class="btn-primary btn" type="submit">{{glyphIco('save')}} {{'_action.btnEdit'|trans|raw}}</button>
+                                </div>
+                            </div>
+                            {{form_end(BrandEditForm)}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+{%block end2_dynamic_jstxt%}
+$(function() {
+    $('textarea.wysiwyg').each(function() {
+        var options = {
+            script_url : '/js/tinymce/tinymce.min.js',
+            theme: "modern",
+            plugins: [ "advlist autolink lists link image charmap print preview hr anchor pagebreak", "searchreplace wordcount visualblocks visualchars code fullscreen", "insertdatetime media nonbreaking save table contextmenu directionality", "emoticons template paste textcolor" ],
+            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media | forecolor backcolor emoticons"
+        };
+        $this = $(this);
+        if($this.is('[required]')) {
+            options.oninit = function(editor) {
+                editor.on('change', function(e) {
+                    editor.save();
+                });
+            }
+        }
+        $this.tinymce(options);
+    });
+});
+{%endblock end2_dynamic_jstxt%}

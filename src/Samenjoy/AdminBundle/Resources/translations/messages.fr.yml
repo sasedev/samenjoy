@@ -1,0 +1,23 @@
+_action.btnAdd: Ajouter
+_action.btnEdit: Modifier
+
+Brand.name.label: "Nom :"
+Brand.title.label: "Titre :"
+Brand.description.label: "Description :"
+Brand.image.label: "Image :"
+Brand.logo.label: "Logo :"
+Brand.banner.label: "Bannière :"
+Brand.frontBanner.label: "Bannière Front :"
+Brand.metaKeywords.label: "MetaKeywords :"
+Brand.metaDescription.label: "MetaDescription :"
+Brand.htmlTitle.label: "Titre HTML :"
+BrandTrans.lang.label: "Trans Langue :"
+BrandTrans.title.label: "Trans Titre :"
+BrandTrans.description.label: "Trans Description :"
+BrandTrans.image.label: "Trans Image :"
+BrandTrans.logo.label: "Trans Logo :"
+BrandTrans.banner.label: "Trans Bannière :"
+BrandTrans.frontBanner.label: "Trans Bannière Front :"
+BrandTrans.metaKeywords.label: "Trans MetaKeywords :"
+BrandTrans.metaDescription.label: "Trans MetaDescription :"
+BrandTrans.htmlTitle.label: "Trans Titre HTML :"

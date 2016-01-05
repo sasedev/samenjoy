@@ -1,0 +1,89 @@
+_admin_homepage:
+    path:     /
+    defaults: { _controller: "SamenjoyAdminBundle:Default:index" }
+
+_admin_config_role_list:
+    path:     /config/roles
+    defaults: { _controller: "SamenjoyAdminBundle:Config:roleList" }
+
+_admin_config_role_addGet:
+    path:     /config/role/add
+    defaults: { _controller: "SamenjoyAdminBundle:Config:roleAddGet" }
+    requirements:
+        _method:  GET
+
+_admin_config_role_addPost:
+    path:     /config/role/add
+    defaults: { _controller: "SamenjoyAdminBundle:Config:roleAddPost" }
+    requirements:
+        _method:  POST
+
+_admin_config_role_delete:
+    pattern:  /config/role/delete/{uid}
+    defaults: { _controller: "SamenjoyAdminBundle:Config:roleDelete" }
+    requirements:
+        uid: \d+
+
+_admin_config_role_editGet:
+    pattern:  /config/role/{uid}
+    defaults: { _controller: "SamenjoyAdminBundle:Config:roleEditGet" }
+    requirements:
+        uid: \d+
+        _method:  GET
+
+_admin_config_role_editPost:
+    pattern:  /config/role/{uid}
+    defaults: { _controller: "SamenjoyAdminBundle:Config:roleEditPost" }
+    requirements:
+        uid: \d+
+        _method:  POST
+
+_admin_static_index_banner_list:
+    path:     /static/banners
+    defaults: { _controller: "SamenjoyAdminBundle:Static:bannerList" }
+
+
+_admin_static_index_banner_addGet:
+    path:     /static/banner/add
+    defaults: { _controller: "SamenjoyAdminBundle:Static:bannerAddGet" }
+    requirements:
+        _method:  GET
+
+
+_admin_brand_list:
+    path:     /brands
+    defaults: { _controller: "SamenjoyAdminBundle:Brand:list" }
+
+_admin_brand_addGet:
+    path:     /brand/add
+    defaults: { _controller: "SamenjoyAdminBundle:Brand:addGet" }
+    requirements:
+        _method:  GET
+
+_admin_brand_addPost:
+    path:     /brand/add
+    defaults: { _controller: "SamenjoyAdminBundle:Brand:addPost" }
+    requirements:
+        _method:  POST
+
+_admin_brand_delete:
+    pattern:  /brand/delete/{uid}
+    defaults: { _controller: "SamenjoyAdminBundle:Brand:delete" }
+    requirements:
+        uid: \d+
+
+_admin_brand_editGet:
+    pattern:  /brand/{uid}
+    defaults: { _controller: "SamenjoyAdminBundle:Brand:editGet" }
+    requirements:
+        uid: \d+
+        _method:  GET
+
+_admin_brand_editPost:
+    pattern:  /brand/{uid}
+    defaults: { _controller: "SamenjoyAdminBundle:Brand:editPost" }
+    requirements:
+        uid: \d+
+        _method:  POST
+
+

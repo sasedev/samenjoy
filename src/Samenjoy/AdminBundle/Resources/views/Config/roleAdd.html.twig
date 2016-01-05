@@ -1,0 +1,36 @@
+{% extends 'SamenjoyAdminBundle::admin.html.twig' %}
+{% block breadcrumb_content %} {{ parent() }}
+<li><a href="{{ path('_admin_config_role_list') }}">Liste des Privilèges</a></li>
+<li><a href="{{ path('_admin_config_role_addGet') }}">Nouveau Privilège</a></li>
+{% endblock breadcrumb_content %} {% block content %}
+<div class="row">
+	<div class="col-lg-12">
+		<div class="well well-sm text-right">
+			<a href="{{ path('_admin_config_role_list') }}" class="btn btn-primary">{{ ionIco('android-system-back') }} Liste des Privilèges</a>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">Nouveau Privilège</div>
+			<!-- /.panel-heading -->
+			<div class="panel-body">
+					{{form_start(RoleAddForm, {'method':'POST', 'action': path('_admin_config_role_addPost'), 'style': 'horizontal'})}}
+					{{form_row(RoleAddForm.name, {'label_col': 3, 'widget_col': 5})}}
+					{{form_row(RoleAddForm.description, {'label_col': 3, 'widget_col': 8})}}
+					{{form_row(RoleAddForm.parents, {'label_col': 3, 'widget_col': 9})}}
+					<div class="form-group"><div class="col-lg-offset-3 col-lg-2"><button class="btn-primary btn" type="submit">{{glyphIco('save')}} {{'_action.btnAdd'|trans|raw}}</button></div></div>
+					{{form_end(RoleAddForm)}}
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock content %}
+{%block end2_dynamic_jstxt%}
+$(function() {
+    $('#RoleAddForm_parents').bootstrapDualListbox({
+        nonselectedlistlabel: 'Non-selected',
+        selectedlistlabel: 'Selected',
+        preserveselectiononmove: 'moved',
+        moveonselect: false,
+        initialfilterfrom: ''
+    });
+});
+{%endblock end2_dynamic_jstxt%}

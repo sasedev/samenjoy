@@ -1,0 +1,35 @@
+{
+    "name": "pilot/ogone-payment-bundle",
+    "version": "1.0.0",
+    "description": "Ogone payment bundle, doctrine port",
+    "keywords": ["Symfony2", "ogone", "payment", "bundle"],
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Cedric LOMBARDOT",
+            "email": "cedric.lombardot@gmail.com"
+        },
+        {
+            "name": "Alex Demchenko",
+            "email": "pilo.uanic@gmail.com"
+        },
+        {
+            "name": "Symfony Community",
+            "homepage": "http://github.com/pilot/OgonePaymentBundle/contributors"
+        }
+    ],
+    "require": {
+        "symfony/symfony": ">=2.1.0",
+        "doctrine/orm": ">=2.2.3,<2.4-dev",
+        "doctrine/doctrine-bundle": "1.2.*",
+        "kriswallsmith/buzz": "v0.10"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~3.7@stable"
+    },
+    "target-dir": "Pilot/OgonePaymentBundle",
+    "autoload": {
+        "psr-0": { "Pilot\\OgonePaymentBundle": "" }
+    }
+}

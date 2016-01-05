@@ -1,0 +1,61 @@
+{% extends 'SamenjoyAdminBundle::admin.html.twig' %}
+{%block end2_dynamic_jstxt%}
+$(function() {
+    {% if brands|length != 0 %}
+    $('#brands_list').dataTable({
+      "columns": [
+        null,
+        null,
+        null,
+        null,
+        { "searchable": false, "sortable": false },
+      ]
+    });
+    {% endif %}
+});
+{%endblock end2_dynamic_jstxt%}
+{% block breadcrumb_content %} {{ parent() }}
+<li><a href="{{ path('_admin_brand_list') }}">Liste des Marques</a></li>
+{% endblock breadcrumb_content %} {% block content %}
+<div class="row">
+	<div class="col-lg-12">
+		<div class="well well-sm text-right">
+			<a href="{{ path('_admin_brand_addGet') }}" class="btn btn-primary">{{ glyphIco('plus') }} Ajouter Nouveau</a>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">Liste des Marques</div>
+			<!-- /.panel-heading -->
+			<div class="panel-body">
+				<div class="table-responsive">
+					<table class="table table-bordered table-condensed table-hover table-striped" id="brands_list">
+						<thead>
+							<tr>
+								<th>Nom</th>
+								<th>titre</th>
+								<th>Description</th>
+								<th>Traductions</th>
+								<th width="10%">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for brand in brands %}
+							<tr>
+								<td>{{ brand.name }}</td>
+								<td>{{ brand.title }}</td>
+								<td>{{ brand.description|raw }}</td>
+								<td>{{ bsBadge(brand.translations|length)  }}</td>
+								<td class="center"><a href="{{ path('_admin_brand_editGet', {'uid': brand.id}) }}" class="btn btn-info">Voir</a> <a href="{{ path('_admin_brand_delete', {'uid': brand.id}) }}" class="btn btn-danger">Supprimer</a></td>
+							</tr>
+							{% else %}
+							<tr class="warning">
+								<td colspan="5" class="center warning">Aucune Marque Trouvé</td>
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock content %}

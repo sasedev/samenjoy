@@ -1,0 +1,11 @@
+pogone_payment_form:
+    pattern: /ogone2/payment
+    defaults: { _controller: "PilotOgonePaymentBundle:Payment:index" }
+
+pogone_payment_feedback:
+    pattern: /ogone2/payment-feedback
+    defaults: { _controller: "PilotOgonePaymentBundle:Payment:feedback" }
+
+pogone_template:
+    pattern: /ogone2/template/{twigPath}
+    defaults: { _controller: "PilotOgonePaymentBundle:Payment:renderTemplate" }

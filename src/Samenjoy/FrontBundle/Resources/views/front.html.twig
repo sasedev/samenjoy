@@ -1,0 +1,240 @@
+{% extends 'SamenjoyResBundle::base.html.twig' %}
+{%if tabActive is not defined%}{%set tabActive=1%}{%endif%}
+    {%block static_css%}
+    {{parent()}}
+        <link rel="stylesheet" type="text/css" href="/css/smoothproducts.css">
+        <link rel="stylesheet" type="text/css" href="/css/animate.min.css">
+        <link rel="stylesheet" type="text/css" href="/css/owl.carousel.min.css">
+        <link rel="stylesheet" type="text/css" href="/css/owl.theme.default.css">
+        <link rel="stylesheet" type="text/css" href="/css/samenjoy.css">
+        <link rel="stylesheet" type="text/css" href="/css/samenjoy_style.css">
+    {%endblock static_css%}
+    {%block begin1_dynamic_jstxt%}
+        paceOptions = {
+            elements: true
+        };
+    {%endblock begin1_dynamic_jstxt%}
+    {%block begin_static_js%}
+    {{parent()}}
+        <script type="text/javascript" src="/js/pace.min.js"></script>
+    {%endblock begin_static_js%}
+    {%block end_static_js%}
+        {{parent()}}
+        <script src="/js/samenjoy.js"></script>
+    {%endblock end_static_js%}
+    {%block html_body_content%}
+        {%block top%}
+        <div class="navbar navbar-samenjoy navbar-fixed-top megamenu" role="navigation">
+            <div class="navbar-top">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6 col-xs-6 col-md-6">
+                            <div class="pull-left ">
+                                <ul class="userMenu ">
+                                    <li><a href="{{ path('_front_faq') }}"> {{faIco('question-circle')}} <span class="hidden-xs">{{'_help'|trans}}</span></a></li>
+                                    </a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-6 col-xs-6 col-md-6 no-margin no-padding">
+                            <div class="pull-right">
+                                <ul class="userMenu">
+                                    {{ locale_switcher() }}
+                                    <li class="dropdown">
+                                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">Pays <b class="caret"> </b></a>
+                                        <ul class="dropdown-menu">
+                                            <li class="country">
+                                                <ul class="col-lg-6  col-sm-6 col-md-6 unstyled">
+                                                    <li><a>Allemagne</a></li>
+                                                    <li><a>France</a></li>
+                                                    <li><a>Italie</a></li>
+                                                    <li><a>Angleterre</a></li>
+                                                    <li><a>Hollande</a></li>
+                                                    <li><a>Belgique</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    {%if is_granted('ROLE_USER') %}<li><a href="{{path('_security_profile')}}"><span class="hidden-xs">{{render(controller('SamenjoySecurityBundle:Profile:whoami'))}}</span> {{ glyphIco('user hide visible-xs') }}</a></li>
+                                    {%if is_granted('ROLE_ADMIN') %}<li><a href="{{path('_admin_homepage')}}"><span class="hidden-xs">{{'_menu.admin'|trans}}</span> {{ glyphIco('tower hide visible-xs') }}</a></li>{%endif%}
+                                    <li><a href="{{path('_security_logout')}}"><span class="hidden-xs">{{'_menu.logout'|trans}}</span> {{ glyphIco('logout hide visible-xs') }}</a></li>
+                                    {%else%}
+                                    <li><a href="{{path('_security_login')}}"> <span class="hidden-xs">{{'_menu.login'|trans}}</span> {{ glyphIco('log-in hide visible-xs') }}</a></li>
+                                    <li class="hidden-xs"><a href="{{path('_security_register')}}">{{'_menu.register'|trans}}</a></li>
+                                    {%endif%}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only"> Toggle navigation </span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-cart">
+                        {{ faIco('shopping-cart colorWhite') }} <span class="cartRespons colorWhite"> {{'_shopping_cart'|trans}} (0.00 €) </span>
+                    </button>
+                    <a class="navbar-brand " href="{{path('_front_homepage')}}"> <img src="/images/logo.png" alt="Samenjoy">
+                    </a>
+                    <div class="search-box pull-right hidden-lg hidden-md hidden-sm">
+                        <div class="input-group">
+                            <button class="btn btn-nobg" type="button">{{ faIco('search') }}</button>
+                        </div>
+                    </div>
+                </div>
+                {% block cartmobile %}
+                {{render(controller('SamenjoyFrontBundle:Menu:mobile'))}}
+                {% endblock cartmobile %}
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li {% if menu_active == 'home'%}class="active"{% endif %}><a href="{{path('_front_homepage')}}"> {{'_menu.home'|trans}} </a></li>
+                        {% block menu_middle %}
+                        {{render(controller('SamenjoyFrontBundle:Menu:pcp'))}}
+                        {% endblock menu_middle %}
+                        <li class="dropdown{% if menu_active == 'infos'%} active{% endif %}">
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#"> {{'_menu.informations'|trans}} <b class="caret"> </b></a>
+                            <ul class="dropdown-menu">
+                                <li class="megamenu-content">
+                                    <ul class="col-lg-12  col-sm-12 col-md-12 unstyled">
+                                        <li><a href="{{ path('_front_aboutus') }}"> {{'_menu.about'|trans}}</a></li>
+                                        <li><a href="{{ path('_front_contactus') }}"> {{'_menu.contact'|trans}} </a></li>
+                                        <li><a href="{{ path('_front_cgu') }}"> {{'_menu.cgu'|trans}} </a></li>
+                                        <li><a href="{{ path('_front_cgv') }}"> {{'_menu.cgv'|trans}} </a></li>
+                                        <li><a href="{{ path('_front_faq') }}"> {{'_menu.faq'|trans}} </a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="nav navbar-nav navbar-right hidden-xs">
+                        {% block cart %}
+                        {{render(controller('SamenjoyFrontBundle:Menu:normal'))}}
+                        {% endblock cart %}
+                        <div class="search-box">
+                            <div class="input-group">
+                                <button class="btn btn-nobg" type="button">
+                                     Rechercher &nbsp; {{ faIco('search') }}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="search-full text-right">
+                <a class="pull-right search-close"> {{ faIco('times-circle') }}
+                </a>
+                <div class="searchInputBox pull-right">
+                    <input type="search" data-searchurl="search?=" name="q" placeholder="start typing and hit enter to search" class="search-input">
+                    <button class="btn-nobg search-btn" type="submit">
+                        {{ faIco('search') }}
+                    </button>
+                </div>
+            </div>
+        </div>
+        {%endblock top%}
+        {% block main %}
+        <div class="container main-container headerOffset">
+            <div class="row innerPage">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="row userInfo">
+                        <p class="lead text-center">... CONTENT GOES HERE ....</p>
+                    </div>
+                    <!--/row end-->
+                </div>
+            </div>
+            <!--/.innerPage-->
+            <div style="clear: both"></div>
+        </div>
+        <!-- /.main-container -->
+        <div class="gap"></div>
+        {% endblock main %}
+        {% block footer %}
+        <footer>
+            <div class="footer" id="footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-3  col-md-6 col-sm-6 col-xs-12">
+                            <h3>{{'_menu.support'|trans}}</h3>
+                            <ul>
+                                <li class="supportLi">
+                                    <p></p>
+                                    <h4>
+                                        <a class="inline" href="mailto:help@samenjoy.com"> {{ faIco('envelope-o') }} help@samenjoy.com </a>
+                                    </h4>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-3  col-md-6 col-sm-6 col-xs-12">
+                            <h3>{{'_menu.informations'|trans}}</h3>
+                            <ul>
+                                <li><a href="{{ path('_front_aboutus') }}"> {{'_menu.about'|trans}}</a></li>
+                                <li><a href="{{ path('_front_contactus') }}"> {{'_menu.contact'|trans}} </a></li>
+                                <li><a href="{{ path('_front_cgu') }}"> {{'_menu.cgu'|trans}} </a></li>
+                                <li><a href="{{ path('_front_cgv') }}"> {{'_menu.cgv'|trans}} </a></li>
+                                <li><a href="{{ path('_front_faq') }}"> {{'_menu.faq'|trans}} </a></li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-3  col-md-6 col-sm-6 col-xs-12">
+                            <h3>{{'_menu.auth'|trans}}</h3>
+                            <ul>
+                                {% if is_granted('ROLE_USER')%}
+                                <li><a href="{{path('_security_profile')}}"> {{'_menu.profile'|trans}} </a></li>
+                                <li><a href="{{path('_security_logout')}}"> {{'_menu.logout'|trans}} </a></li>
+                                {% else %}
+                                <li><a href="{{path('_security_login')}}"> {{'_menu.login'|trans}} </a></li>
+                                <li><a href="{{path('_security_lostpass')}}"> {{'_menu.lostpass'|trans}} </a></li>
+                                <li><a href="{{path('_security_register')}}"> {{'_menu.register'|trans}} </a></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                        <div class="col-lg-3  col-md-6 col-sm-6 col-xs-12 ">
+                            <h3>{{'_newsletter'|trans}}</h3>
+                            <ul>
+                                <li>
+                                    <div class="input-append newsLatterBox text-center">
+                                        <input type="text" class="full text-center" placeholder="Email ">
+                                        <button class="btn  bg-gray" type="button">
+                                            {{'_menu.newsletter'|trans}} {{ faIco('long-arrow-right') }}
+                                        </button>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="social">
+                                <li><a href="https://www.facebook.com/samenjoy.fr"> {{ faIco('facebook') }} &nbsp;
+                                </a></li>
+                                <li><a href="http://twitter.com/"> {{ faIco('twitter') }} &nbsp;
+                                </a></li>
+                                <li><a href="https://plus.google.com/"> {{ faIco('google-plus') }} &nbsp;
+                                </a></li>
+                                <li><a href="https://www.pinterest.com/"> {{ faIco('pinterest') }} &nbsp;
+                                </a></li>
+                                <li><a href="http://youtube.com/"> {{ faIco('youtube') }} &nbsp;
+                                </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="container">
+                    <p class="pull-left">&copy; Samenjoy {{ 'now'|date('Y') }}. All right reserved.</p>
+                    <div class="pull-right paymentMethodImg">
+                        <img height="30" class="pull-right" src="/images/payment/discover_network_card.png" alt="Discover">
+                        <img height="30" class="pull-right" src="/images/payment/american_express_card.png" alt="American Express">
+                        <img height="30" class="pull-right" src="/images/payment/mastro.png" alt="Maestro">
+                        <img height="30" class="pull-right" src="/images/payment/master_card.png" alt="Master Card">
+                        <img height="30" class="pull-right" src="/images/payment/visa.png" alt="Visa">
+                        <img height="30" class="pull-right" src="/images/payment/3dsecure.png" alt="3d Secure">
+                        <img height="30" class="pull-right" src="/images/payment/ogone_payment_fr.png" alt="Ogone">
+                    </div>
+                </div>
+            </div>
+        </footer>
+        {% endblock footer %}
+
+    {%endblock html_body_content%}

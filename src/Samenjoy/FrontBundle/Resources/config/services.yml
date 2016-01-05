@@ -1,0 +1,7 @@
+parameters:
+#    samenjoy_front.example.class: Samenjoy\FrontBundle\Example
+
+services:
+#    samenjoy_front.example:
+#        class: %samenjoy_front.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

@@ -1,0 +1,98 @@
+{% extends 'SamenjoyAdminBundle::admin.html.twig' %} {% block breadcrumb_content %} {{ parent() }}
+<li><a href="{{ path('_admin_config_role_list') }}">Liste des Privilèges</a></li>
+<li class="active"><a href="{{path('_admin_config_role_editGet', {'uid': role.id})}}">{{glyphIco('edit')}} &nbsp; Détails du Privilèges <b>{{role.name}}</b></a></li>
+{% endblock breadcrumb_content %} {% block content %}
+<div class="row">
+	<div class="col-lg-12">
+		<div class="well well-sm text-right">
+			<a href="{{ path('_admin_config_role_list') }}" class="btn btn-primary">{{ ionIco('android-system-back') }} Liste des Privilèges</a><br><br>
+			<a href="{{ path('_admin_config_role_addGet') }}" class="btn btn-primary">{{ glyphIco('plus') }} Ajouter Nouveau</a>
+		</div>
+		<div class="nav-tabs-custom">
+			<ul class="nav nav-tabs">
+				<li  {%if tabActive==1%} class="active" {%endif%}><a href="#overview" data-toggle="tab">Aperçu</a></li>
+				<li  {%if tabActive==2%} class="active" {%endif%}><a href="#edit" data-toggle="tab">Edition</a></li>
+			</ul>
+			<div class="tab-content">
+				<div class="tab-pane fade{%if tabActive==1%} in active{%endif%}" id="overview">
+					<div class="box box-primary">
+						<div class="box-header">
+							<h3 class="box-title">Détails du role</h3>
+						</div>
+						<div class="box-body">
+							<div class="row">
+								<div class="col-lg-3 text-right">Nom :</div>
+								<div class="col-lg-9">{{role.name}}</div>
+								<div class="col-lg-3 text-right">Description :</div>
+								<div class="col-lg-9">{%if role.description is not empty%}{{role.description|raw}}{%else%}{{bsLabelWarning('_NA'|trans)}}{%endif%}</div>
+								<div class="col-lg-12">&nbsp;</div>
+								<div class="col-lg-3 text-right">Parents :</div>
+								<div class="col-lg-9">
+									{%if role.parents|length!=0%}
+									<ul class="list-unstyled">
+										{% for r in role.parents %}
+										<li><a href="{{path('_admin_config_role_editGet', {'uid': r.id})}}">{{r.name}}</a></li> {% endfor %}
+									</ul>
+									{%else%} {{bsLabelWarning('Aucun')}} {%endif%}
+								</div>
+								<div class="col-lg-12">&nbsp;</div>
+								<div class="col-lg-3 text-right">Enfants :</div>
+								<div class="col-lg-9">
+									{%if role.childs|length!=0%}
+									<ul class="list-unstyled">
+										{% for r in role.childs %}
+										<li><a href="{{path('_admin_config_role_editGet', {'uid': r.id})}}">{{r.name}}</a></li> {% endfor %}
+									</ul>
+									{%else%} {{bsLabelWarning('Aucun')}} {%endif%}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane fade{%if tabActive==2%} in active{%endif%}" id="edit">
+					<div class="box box-danger">
+						<div class="box-header">
+							<h3 class="box-title">Modification du role</h3>
+						</div>
+						<div class="box-body">
+							{{form_start(RoleEditForm, {'method':'POST', 'action': path('_admin_config_role_editPost', {'uid': role.id}), 'style': 'horizontal'})}}
+							{{form_row(RoleEditForm.description, {'label_col': 3, 'widget_col': 8})}}
+							<div class="form-group">
+								<div class="col-lg-offset-3 col-lg-2">
+									<button class="btn-primary btn" type="submit">{{glyphIco('save')}} {{'_action.btnEdit'|trans|raw}}</button>
+								</div>
+							</div>
+							{{form_end(RoleEditForm)}}
+						</div>
+					</div>
+					<div class="box box-danger">
+						<div class="box-header">
+							<h3 class="box-title">Modification des parents</h3>
+						</div>
+						<div class="box-body">
+							{{form_start(RolePicklistParentsForm, {'method':'POST', 'action': path('_admin_config_role_editPost', {'uid': role.id}), 'style': 'horizontal'})}} {{form_row(RolePicklistParentsForm.parents, {'label_col': 3, 'widget_col': 9})}}
+							<div class="form-group">
+								<div class="col-lg-offset-3 col-lg-2">
+									<button class="btn-primary btn" type="submit">{{glyphIco('save')}} {{'_action.btnEdit'|trans|raw}}</button>
+								</div>
+							</div>
+							{{form_end(RolePicklistParentsForm)}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock content %}
+{%block end2_dynamic_jstxt%}
+$(function() {
+    $('#RolePicklistParentsForm_parents').bootstrapDualListbox({
+        nonselectedlistlabel: 'Non-selected',
+        selectedlistlabel: 'Selected',
+        preserveselectiononmove: 'moved',
+        moveonselect: false,
+        initialfilterfrom: ''
+    });
+});
+{%endblock end2_dynamic_jstxt%}

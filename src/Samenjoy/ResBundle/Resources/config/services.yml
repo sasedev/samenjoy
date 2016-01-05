@@ -1,0 +1,7 @@
+parameters:
+#    samenjoy_res.example.class: Samenjoy\ResBundle\Example
+
+services:
+#    samenjoy_res.example:
+#        class: %samenjoy_res.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

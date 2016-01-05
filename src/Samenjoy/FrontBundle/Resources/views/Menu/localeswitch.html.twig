@@ -1,0 +1,15 @@
+<li class="dropdown">
+    <a data-toggle="dropdown" class="dropdown-toggle" href="#">{{ current_locale }} <b class="caret"> </b></a>
+    <ul class="dropdown-menu">
+        <li class="lng">
+            <ul class="col-lg-2  col-sm-3 col-md-3 unstyled">
+                {% for locale in locales %}
+                    <li{% if current_locale == locale.locale %} class="locale_current"{% endif %}>
+                        <a href="{{ locale.link }}" title="{{ locale.locale_current_language }}">{{ locale.locale }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </li>
+    </ul>
+</li>
+

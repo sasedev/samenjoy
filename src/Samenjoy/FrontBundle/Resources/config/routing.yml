@@ -1,0 +1,31 @@
+_admSetup:
+    path:     /AdmSetup
+    defaults: { _controller: "SamenjoyFrontBundle:Setup:setup" }
+
+_front_homepage:
+    path:     /
+    defaults: { _controller: "SamenjoyFrontBundle:Default:index" }
+
+_front_cgu:
+    path:     /gtu
+    defaults: { _controller: "SamenjoyFrontBundle:Default:cgu" }
+    
+_front_cgv:
+    path:     /gts
+    defaults: { _controller: "SamenjoyFrontBundle:Default:cgv" }
+    
+_front_faq:
+    path:     /faq
+    defaults: { _controller: "SamenjoyFrontBundle:Default:faq" }
+    
+_front_aboutus:
+    path:     /about
+    defaults: { _controller: "SamenjoyFrontBundle:Default:about" }
+    
+_front_contactus:
+    path:     /contact
+    defaults: { _controller: "SamenjoyFrontBundle:Default:contact" }
+    
+_front_mycart:
+    path:     /myCart
+    defaults: { _controller: "SamenjoyFrontBundle:Cart:index" }

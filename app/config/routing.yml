@@ -1,0 +1,16 @@
+samenjoy_security:
+    resource: "@SamenjoySecurityBundle/Resources/config/routing.yml"
+    prefix:   /
+
+samenjoy_res:
+    resource: "@SamenjoyResBundle/Resources/config/routing.yml"
+    prefix:   /
+
+samenjoy_front:
+    resource: "@SamenjoyFrontBundle/Resources/config/routing.yml"
+    prefix:   /
+
+samenjoy_admin:
+    resource: "@SamenjoyAdminBundle/Resources/config/routing.yml"
+    prefix:   /Admin
+

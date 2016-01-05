@@ -1,0 +1,7 @@
+parameters:
+#    samenjoy_security.example.class: Samenjoy\SecurityBundle\Example
+
+services:
+#    samenjoy_security.example:
+#        class: %samenjoy_security.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

@@ -1,0 +1,86 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="ogone.configuration.class">Pilot\OgonePaymentBundle\Config\ConfigurationContainer</parameter>
+        <parameter key="ogone.secure_configuration.class">Pilot\OgonePaymentBundle\Config\SecureConfigurationContainer</parameter>
+        <parameter key="ogone.transaction_builder.class">Pilot\OgonePaymentBundle\Builder\TransactionBuilder</parameter>
+        <parameter key="ogone.transaction_builder2.class">Pilot\OgonePaymentBundle\Builder\TransactionBuilder2</parameter>
+        <parameter key="ogone.transaction_form_builder.class">Pilot\OgonePaymentBundle\Builder\TransactionFormBuilder</parameter>
+        <parameter key="ogone.feedbacker.class">Pilot\OgonePaymentBundle\Feedback\TransactionFeedbacker</parameter>
+        <parameter key="ogone.batch_request.class">Pilot\OgonePaymentBundle\Batch\BatchRequest</parameter>
+        <parameter key="ogone.file_downloader.class">Pilot\OgonePaymentBundle\Batch\FileDownloader</parameter>
+        <parameter key="ogone.batch_alias_manager.class">Pilot\OgonePaymentBundle\Batch\AliasManager</parameter>
+        <parameter key="ogone.batch_transaction_manager.class">Pilot\OgonePaymentBundle\Batch\TransactionManager</parameter>
+        <parameter key="ogone.alias_form.class">Pilot\OgonePaymentBundle\Form\AliasType</parameter>
+        <parameter key="ogone.template_route">ogone_template</parameter>
+    </parameters>
+
+    <services>
+        <service id="ogone.configuration" class="%ogone.configuration.class%" public="true">
+            <argument>%ogone.configuration.defaults%</argument>
+            <argument type="service" id="router" />
+            <argument>%ogone.template_route%</argument>
+        </service>
+
+        <service id="ogone.secure_configuration" class="%ogone.secure_configuration.class%" public="false">
+            <argument>%ogone.configuration.secure%</argument>
+        </service>
+
+        <service id="ogone.transaction_builder" class="%ogone.transaction_builder.class%" public="true">
+            <argument type="service" id="ogone.transaction_form_builder" />
+            <argument type="service" id="ogone.configuration" />
+            <argument type="service" id="ogone.batch_transaction_manager" />
+            <argument type="service" id="doctrine.orm.entity_manager" />
+        </service>
+
+        <service id="ogone.transaction_builder2" class="%ogone.transaction_builder2.class%" public="true">
+            <argument type="service" id="ogone.transaction_form_builder" />
+            <argument type="service" id="ogone.configuration" />
+            <argument type="service" id="ogone.batch_transaction_manager" />
+            <argument type="service" id="doctrine.orm.entity_manager" />
+        </service>
+
+        <service id="ogone.transaction_form_builder" class="%ogone.transaction_form_builder.class%" public="false">
+            <argument type="service" id="form.factory" />
+            <argument type="service" id="ogone.secure_configuration" />
+        </service>
+
+        <service id="ogone.feedbacker" class="%ogone.feedbacker.class%" public="true" scope="request">
+            <argument type="service" id="request" />
+            <argument type="service" id="ogone.secure_configuration" />
+            <argument type="service" id="doctrine.orm.entity_manager" />
+        </service>
+
+        <service id="ogone.batch_request" class="%ogone.batch_request.class%" public="true">
+            <argument>%ogone.env%</argument>
+            <argument type="service" id="ogone.configuration" />
+            <argument type="service" id="ogone.secure_configuration" />
+        </service>
+
+        <service id="ogone.file_downloader" class="%ogone.file_downloader.class%" public="true">
+            <argument>%ogone.env%</argument>
+            <argument type="service" id="ogone.configuration" />
+            <argument type="service" id="ogone.secure_configuration" />
+        </service>
+
+        <service id="ogone.batch_alias_manager" class="%ogone.batch_alias_manager.class%" public="true">
+            <argument type="service" id="ogone.configuration" />
+            <argument type="service" id="ogone.batch_request" />
+        </service>
+
+        <service id="ogone.batch_transaction_manager" class="%ogone.batch_transaction_manager.class%" public="true">
+            <argument type="service" id="ogone.configuration" />
+            <argument type="service" id="ogone.batch_request" />
+        </service>
+
+        <service id="ogone.alias_form" class="%ogone.alias_form.class%" public="true">
+            <argument type="service" id="translator" />
+            <argument type="service" id="ogone.batch_transaction_manager" />
+            <argument>%ogone.brands%</argument>
+        </service>
+    </services>
+</container>

@@ -1,0 +1,37 @@
+<li class="dropdown megamenu-80width">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#"> {{ '_menu.weeklyproducts'|trans }} <b class="caret"> </b></a>
+                        <ul class="dropdown-menu">
+                            <li class="megamenu-content">
+                                <ul class="col-lg-4 col-sm-4 col-md-4 unstyled noMarginLeft newCollectionUl">
+                                    <li class="no-border">
+                                        <p class="promo-1">
+                                            <strong> {{ '_menu.byType'|trans }} </strong>
+                                        </p>
+                                    </li>
+                                    {%for type in collectionTypes%}
+                                    <li><a href="{{path('_front_colType_editGet', {'type': type.refint})}}"> {{type.title}} </a></li>
+                                    {%endfor%}
+                                </ul>
+                                <ul class="col-lg-4 col-sm-4 col-md-4 unstyled noMarginLeft newCollectionUl">
+                                    <li class="no-border">
+                                        <p class="promo-1">
+                                            <strong> {{ '_menu.byGroup'|trans }} </strong>
+                                        </p>
+                                    </li>
+                                    {%for group in collectionGroups%}
+                                    <li><a href="{{path('_front_colGroup_editGet', {'group': group.refint})}}"> {{group.title}} </a></li>
+                                    {%endfor%}
+                                </ul>
+                                <ul class="col-lg-4 col-sm-4 col-md-4 unstyled noMarginLeft newCollectionUl">
+                                    <li class="no-border">
+                                        <p class="promo-1">
+                                            <strong> {{ '_menu.byBrand'|trans }} </strong>
+                                        </p>
+                                    </li>
+                                    {%for brand in brands%}
+                                    <li><a href="{{path('_front_brand_editGet', {'brand': brand.refint})}}"> {{brand.title}} </a></li>
+                                    {%endfor%}
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>

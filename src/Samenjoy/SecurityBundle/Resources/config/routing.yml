@@ -1,0 +1,11 @@
+_security_login:
+    path:     /login
+    defaults: { _controller: "SamenjoySecurityBundle:Security:login" }
+
+_security_register:
+    path:     /register
+    defaults: { _controller: "SamenjoySecurityBundle:Register:index" }
+
+_security_lostpass:
+    path:     /lostpass
+    defaults: { _controller: "SamenjoySecurityBundle:Password:index" }

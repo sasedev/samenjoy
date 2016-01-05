@@ -1,0 +1,72 @@
+{% extends 'SamenjoyAdminBundle::admin.html.twig' %}
+{% block breadcrumb_content %} {{ parent() }}
+<li><a href="{{ path('_admin_brand_list') }}">Liste des Marques</a></li>
+<li><a href="{{ path('_admin_brand_addGet') }}">Nouvelle Marque</a></li>
+{% endblock breadcrumb_content %} {% block content %}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="well well-sm text-right">
+            <a href="{{ path('_admin_brand_list') }}" class="btn btn-primary">{{ ionIco('android-system-back') }} Liste des Marques</a>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">Nouvelle Marque</div>
+            <div class="panel-body">
+                {{form_start(BrandAddForm, {'method':'POST', 'action': path('_admin_brand_addPost'), 'style': 'horizontal'})}}
+                {{form_row(BrandAddForm.name, {'label_col': 3, 'widget_col': 5})}}
+                {{form_row(BrandAddForm.title, {'label_col': 3, 'widget_col': 5})}}
+                {{form_row(BrandAddForm.description, {'label_col': 3, 'widget_col': 8, 'attr':{'class':'wysiwyg'} })}}
+                {{form_row(BrandAddForm.image, {'label_col': 3, 'widget_col': 9})}}
+                {{form_row(BrandAddForm.logo, {'label_col': 3, 'widget_col': 9})}}
+                {{form_row(BrandAddForm.banner, {'label_col': 3, 'widget_col': 9})}}
+                {{form_row(BrandAddForm.frontBanner, {'label_col': 3, 'widget_col': 9})}}
+                {{form_row(BrandAddForm.metaKeywords, {'label_col': 3, 'widget_col': 7})}}
+                {{form_row(BrandAddForm.metaDescription, {'label_col': 3, 'widget_col': 7})}}
+                {{form_row(BrandAddForm.htmlTitle, {'label_col': 3, 'widget_col': 5})}}
+                <br>
+                <br>
+                <br>
+                <br>
+                {%for BrandTransType in BrandAddForm.translations%}
+                {{form_row(BrandTransType.lang, {'label_col': 3, 'widget_col': 5})}}
+                {{form_row(BrandTransType.title, {'label_col': 3, 'widget_col': 5})}}
+                {{form_row(BrandTransType.description, {'label_col': 3, 'widget_col': 8, 'attr':{'class':'wysiwyg'} })}}
+                {{form_row(BrandTransType.image, {'label_col': 3, 'widget_col': 9})}}
+                {{form_row(BrandTransType.logo, {'label_col': 3, 'widget_col': 9})}}
+                {{form_row(BrandTransType.banner, {'label_col': 3, 'widget_col': 9})}}
+                {{form_row(BrandTransType.frontBanner, {'label_col': 3, 'widget_col': 9})}}
+                {{form_row(BrandTransType.metaKeywords, {'label_col': 3, 'widget_col': 7})}}
+                {{form_row(BrandTransType.metaDescription, {'label_col': 3, 'widget_col': 7})}}
+                {{form_row(BrandTransType.htmlTitle, {'label_col': 3, 'widget_col': 5})}}
+                <br>
+                <br>
+                {%endfor%}
+                {% do BrandAddForm.translations.setRendered %}
+
+                <div class="form-group"><div class="col-lg-offset-3 col-lg-2"><button class="btn-primary btn" type="submit">{{glyphIco('save')}} {{'_action.btnAdd'|trans|raw}}</button></div></div>
+                {{form_end(BrandAddForm)}}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+{%block end2_dynamic_jstxt%}
+$(function() {
+    $('textarea.wysiwyg').each(function() {
+        var options = {
+            script_url : '/js/tinymce/tinymce.min.js',
+            theme: "modern",
+            plugins: [ "advlist autolink lists link image charmap print preview hr anchor pagebreak", "searchreplace wordcount visualblocks visualchars code fullscreen", "insertdatetime media nonbreaking save table contextmenu directionality", "emoticons template paste textcolor" ],
+            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media | forecolor backcolor emoticons"
+        };
+        $this = $(this);
+        if($this.is('[required]')) {
+            options.oninit = function(editor) {
+                editor.on('change', function(e) {
+                    editor.save();
+                });
+            }
+        }
+        $this.tinymce(options);
+    });
+});
+{%endblock end2_dynamic_jstxt%}
